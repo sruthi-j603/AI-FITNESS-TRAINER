@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fitness Video Tracker</title>
+</head>
+<body>
+  <h1>Fitness Video Tracker</h1>
+
+  <div id="webcam">
+    <video id="video" autoplay></video>
+  </div>
+
+  <button id="start-tracking" onclick="startTracking()">Start Tracking</button>
+  <button id="stop-tracking" onclick="stopTracking()">Stop Tracking</button>
+  <button id="start-recording" onclick="startRecording()">Start Recording</button>
+  <button id="stop-recording" onclick="stopRecording()">Stop Recording</button>
+  
+  <script>
+    var video = document.getElementById("video");
+    var startTrackingButton = document.getElementById("start-tracking");
+    var stopTrackingButton = document.getElementById("stop-tracking");
+    var startRecordingButton = document.getElementById("start-recording");
+    var stopRecordingButton = document.getElementById("stop-recording");
+    var stream;
+
+    function startTracking() {
+      fetch('https://start_recording', {
+        method: 'POST',
+        body: webcamData
+      })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        // Handle the API response here
+        console.log(data);
+      });
+    }
+
+    function stopTracking() {
+      stream.getTracks().forEach(function(track) {
+        track.stop();
+      });
+      video.srcObject = null;
+      startTrackingButton.disabled = false;
+      stopTrackingButton.disabled = true;
+    }
+    
+    function start_recording() {
+        // code to start recording the video using webRTC or MediaRecorder API
+    }
+    
+    function stopRecording() {
+        // code to stop recording and save the video
+    }
+  </script>
+</body>
+</html>
